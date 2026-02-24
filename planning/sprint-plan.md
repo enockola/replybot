@@ -9,7 +9,7 @@ The goal is to build the project incrementally while ensuring all rubric require
 
 ReplyBot is a server-side rendered web application that provides:
 
-- A categorized snippet (canned response) library
+- A categorized canned response library
 - A multi-stage ticket workflow system
 - Role-based access control (Admin, Vendor, Standard User)
 - An admin management dashboard
@@ -31,10 +31,10 @@ The project demonstrates:
 **Goal:** Establish clean architecture and rendering.
 
 ## Tasks
-- [ ] Initialize Express project (ESM syntax)
+- [+] Initialize Express project (ESM syntax)
 - [ ] Configure PostgreSQL connection
-- [ ] Set up EJS with layouts and partials
-- [ ] Create project folder structure:
+- [-] Set up EJS with layouts and partials
+- [-] Create project folder structure:
   - controllers/
   - models/
   - routes/
@@ -42,7 +42,8 @@ The project demonstrates:
   - views/
   - config/
 - [ ] Implement global error handler
-- [ ] Create basic layout template
+- [+] Import basic layout template from previous replybot website and make sure it works.
+- [-] Create wireframes for the following placeholder images
 - [ ] Create placeholder pages:
   - Home
   - Login
@@ -50,7 +51,7 @@ The project demonstrates:
   - Snippets
   - Tickets
   - Admin Dashboard
-- [ ] Verify server runs without errors
+- [-] Verify server runs without errors
 
 **Deliverable:** Functional Express app with rendering and DB connection.
 
@@ -85,7 +86,7 @@ The project demonstrates:
 
 # Sprint 3 – Snippet Library System
 
-**Goal:** Fully functional categorized snippet management.
+**Goal:** Fully functional categorized canned response management.
 
 ## Database
 - [ ] Create categories table
@@ -219,6 +220,10 @@ Build in this order:
 Foundation → Authentication → Snippets → Tickets → Admin → Security → Deployment
 
 Do not skip ahead.
+
+- [ ] unassigned
+- [-] in progress
+- [+] completed
 
 ---
 
