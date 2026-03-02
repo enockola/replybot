@@ -34,13 +34,13 @@ The project demonstrates:
 - [+] Initialize Express project (ESM syntax)
 - [ ] Configure PostgreSQL connection
 - [-] Set up EJS with layouts and partials
-- [-] Create project folder structure:
+- [-] Configure error handling
+- [+] Create project folder structure:
   - controllers/
   - models/
   - routes/
   - middleware/
   - views/
-  - config/
 - [ ] Implement global error handler
 - [+] Import basic layout template from previous replybot website and make sure it works.
 - [-] Create wireframes for the following placeholder images

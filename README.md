@@ -75,10 +75,10 @@ Email: user@example.com
 
 ## 5. Known Limitations
 
-- Pagination is not implemented for large datasets.
-- Response version history is simplified.
-- Vendor assignment is manual (no auto-assignment logic).
-- UI styling is minimal and focuses on functionality.
+- Pagination is not implemented for large datasets. I'm not expecting a large dataset for this project and will display all data at once.
+- Response version history is simplified. Will not be tracking the edits made so no full edit history.
+- Vendor assignment is manual (no auto-assignment logic)*
+- UI styling is minimal and focuses on functionality. May not be able to work on the CSS responsiveness yet..
 
 ## Project Plan / Roadmap
 
