@@ -54,7 +54,7 @@ li {
 }
 
 .container {
-    padding: 0 1rem 1rem;
+    padding: 0 1rem;
     margin: auto;
 }
 
@@ -315,6 +315,7 @@ nav .hamburger {
 /* footer stylings */
 
 footer {
+    margin-top: 1rem;
     padding: 4rem 0;
     background-color: var(--accent2-color);
 }
@@ -359,7 +360,7 @@ footer ul li a {
 
 @media screen and (min-width: 700px) {
     .container {
-        padding: 0 3rem 1rem;
+        padding: 0 3rem;
         max-width: 1400px !important;
         margin: auto;
     }
@@ -414,7 +415,7 @@ footer ul li a {
     }
 
     .container {
-        padding: 0 3rem 1rem;
+        padding: 0 3rem;
         max-width: 1200px;
         margin: auto;
     }
