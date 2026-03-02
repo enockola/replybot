@@ -54,7 +54,7 @@ li {
 }
 
 .container {
-    padding: 0 1rem;
+    padding: 0 1rem 1rem;
     margin: auto;
 }
 
@@ -359,7 +359,7 @@ footer ul li a {
 
 @media screen and (min-width: 700px) {
     .container {
-        padding: 0 3rem;
+        padding: 0 3rem 1rem;
         max-width: 1400px !important;
         margin: auto;
     }
@@ -394,10 +394,6 @@ footer ul li a {
 
 
 @media screen and (min-width: 1000px) {
-    .container {
-        padding: 0;
-        margin: auto;
-    }
 
     nav ul {
         position: unset;
@@ -418,7 +414,7 @@ footer ul li a {
     }
 
     .container {
-        padding: 0 3rem;
+        padding: 0 3rem 1rem;
         max-width: 1200px;
         margin: auto;
     }
