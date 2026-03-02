@@ -15,9 +15,25 @@
     <meta property="og:site_name" content="Reply Bot">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="en_US">
-    <title>ReplyBot HomePage</title>
-    <link rel="stylesheet" media="all" href="css/styles.css">
+    <title><%= title %></title>
+    <link rel="stylesheet" media="all" href="css/main.css">
     <link rel="icon" href="images/favicon.png" media="all" type="image/x-icon">
+    <% if (NODE_ENV.includes('dev')) { %>
+    <script>
+        // Get the current hostname and port from the browser
+        const host = window.location.hostname;
+        const currentPort = window.location.port;
+
+        // Calculate WebSocket port (current port + 1)
+        const wsPort = currentPort ? (parseInt(currentPort) + 1) : 3001;
+
+        // Create WebSocket connection using dynamic hostname and port
+        const ws = new WebSocket(`ws://${host}:${wsPort}`);
+        ws.onclose = () => {
+            setTimeout(() => location.reload(), 2000);
+        };
+    </script>
+    <% } %>
 </head>
 
 <body>
@@ -41,9 +57,18 @@
     <header class="container">
         <nav>
             <img src="images/logo.png" width="113" height="113" alt="ReplyBot logo image">
+            
             <ul class="nav-list">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="replybot.html">Canned Responses</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/resources">Resources</a></li>
+                <li><a href="/dashboard">Dashboard</a></li>
+            </ul>
+            
+            <ul>
+                <li><a href="/">Log In</a></li>
+                <li><a href="/">Register</a></li>
+                <!-- <li><a href="/">Log Out</a></li> -->
             </ul>
             <div class="hamburger">
                 <i class="fa-solid fa-bars"></i>

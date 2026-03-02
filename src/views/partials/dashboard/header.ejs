@@ -7,10 +7,26 @@
     <meta name="author" content="Enoch Olayemi">
     <meta name="description"
         content="This is my final project for WDD 131 | a customer service page for canned responses.">
-    <title>ReplyBot Canned Response</title>
+    <title><%= title %></title>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/replybot.css">
+    <link rel="stylesheet" href="css/dashboard.css">
     <link rel="icon" href="images/favicon.png" media="all" type="image/x-icon">
+    <% if (NODE_ENV.includes('dev')) { %>
+    <script>
+        // Get the current hostname and port from the browser
+        const host = window.location.hostname;
+        const currentPort = window.location.port;
+
+        // Calculate WebSocket port (current port + 1)
+        const wsPort = currentPort ? (parseInt(currentPort) + 1) : 3001;
+
+        // Create WebSocket connection using dynamic hostname and port
+        const ws = new WebSocket(`ws://${host}:${wsPort}`);
+        ws.onclose = () => {
+            setTimeout(() => location.reload(), 2000);
+        };
+    </script>
+    <% } %>
 </head>
 
 <body>
@@ -35,40 +51,11 @@
         <nav>
             <img class="logo" src="images/logo.png" width="113" height="113" alt="ReplyBot logo">
             <ul class="nav-list">
-                <li><a href="/">Home</a></li>
-                <li><a href="/replybot">Canned Responses</a></li>
+                <li><a href="/dashboard">Admin</a></li>
+                <li><a href="/">Log Out</a></li>
             </ul>
             <div class="hamburger">
                 <i class="fa-solid fa-bars"></i>
             </div>
         </nav>
     </header>
-
-    <!-- main -->
-    <main class="canned-response">
-        <aside class="side-bar nav-adjust">
-            <ul class="category">
-                <li id="intro">Intro</li>
-                <li id="outro">Outro</li>
-                <li id="inactive">Inactive</li>
-                <li id="survey">Survey</li>
-                <li id="sympathy">Sympathy</li>
-                <li id="email">Email Templates</li>
-            </ul>
-            <img class="logo" src="images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
-        </aside>
-        <div class="nav-adjust">
-            <div class="content-container">
-                <button id="show-favorites">Show Favorites</button>
-                <div class="content">
-                    <!-- canned responses go here -->
-                </div>
-            </div>
-        </div>
-    </main>
-    <script src="js/index.js" defer></script>
-    <script src="js/replybot.js" defer></script>
-    <script rel="preconnect" src="https://kit.fontawesome.com/acd4da4d53.js" defer crossorigin="anonymous"></script>
-</body>
-
-</html>
