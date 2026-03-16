@@ -31,27 +31,27 @@ The project demonstrates:
 **Goal:** Establish clean architecture and rendering.
 
 ## Tasks
-- [+] Initialize Express project (ESM syntax)
+- [x] Initialize Express project (ESM syntax)
 - [ ] Configure PostgreSQL connection
-- [-] Set up EJS with layouts and partials
-- [-] Configure error handling
-- [+] Create project folder structure:
+- [x] Set up EJS with layouts and partials
+- [x] Configure error handling
+- [x] Create project folder structure:
   - controllers/
   - models/
   - routes/
   - middleware/
   - views/
-- [ ] Implement global error handler
-- [+] Import basic layout template from previous replybot website and make sure it works.
-- [-] Create wireframes for the following placeholder images
-- [ ] Create placeholder pages:
+- [x] Implement global error handler
+- [x] Import basic layout template from previous replybot website and make sure it works.
+- [x] Create wireframes for the following placeholder images
+- [x] Create placeholder pages:
   - Home
   - Login
   - Register
   - Snippets
   - Tickets
   - Admin Dashboard
-- [-] Verify server runs without errors
+- [x] Verify server runs without errors
 
 **Deliverable:** Functional Express app with rendering and DB connection.
 
@@ -221,9 +221,9 @@ Foundation → Authentication → Snippets → Tickets → Admin → Security �
 
 Do not skip ahead.
 
-- [ ] unassigned
-- [-] in progress
-- [+] completed
+
+- [ ] in progress
+- [x] completed
 
 ---
 
