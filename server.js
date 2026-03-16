@@ -189,11 +189,10 @@ app.get('/responses/:slug', (req, res, next) => {
     return next(err);
   }
 
-  console.log('Viewing response category:', slug);
-
   res.render('response-details', {
     title: responseCategory.name,
-    category: responseCategory
+    category: responseCategory,
+    cannedResponses
   });
 });
 
