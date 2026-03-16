@@ -1,0 +1,44 @@
+<%- include('partials/dashboard/header') %>
+
+<main class="canned-response">
+    <aside class="side-bar nav-adjust">
+        <ul class="category">
+            <li><a href="/responses">Canned Response</a></li>
+            <li><a href="/responses">Response Suggestions</a></li>
+            <li><a href="/responses">Support</a></li>
+            <li><a href="/responses">My Tickets</a></li>
+            <li><a href="/responses">Users</a></li>
+        </ul>
+        <div>
+            <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
+            <p>©2026. Replybot</p>
+        </div>
+    </aside>
+
+    <div class="nav-adjust">
+        <div class="content-container">
+            <div class="content-nav">
+                <a href="/dashboard" title="Dasboard home page"><i class="fa-solid fa-house"></i></a> |
+                <a href="/responses">Canned Responses</a> |
+                <!-- <button id="show-favorites">Show Favorites</button> -->
+            </div>
+
+            <div class="content">
+                <% cannedResponses.forEach((cannedResponse) => { %>
+                    <div class="content-box">
+                        <div class="shadow">
+                            <h1>
+                                <a href="/responses/<%= cannedResponse.slug %>">
+                                    <%= cannedResponse.name %>
+                                </a>
+                            </h1>
+                            <p><%= cannedResponse.description %></p>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('partials/dashboard/footer') %>
