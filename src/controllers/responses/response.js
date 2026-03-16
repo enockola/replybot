@@ -8,7 +8,7 @@ const responsesPage = async (req, res, next) => {
   try {
     const cannedResponses = await getAllResponseCategories();
 
-    res.render('responses', {
+    res.render('responses/category', {
       title: 'Canned Responses',
       cannedResponses
     });
@@ -32,7 +32,7 @@ const responseDetailPage = async (req, res, next) => {
 
     const cannedResponses = await getAllResponseCategories();
 
-    res.render('response-details', {
+    res.render('responses/list', {
       title: category.name,
       category,
       cannedResponses

@@ -1,11 +1,13 @@
-<%- include('partials/dashboard/header') %>
+<%- include('../partials/dashboard/header') %>
 
 <main class="canned-response">
     <aside class="side-bar nav-adjust">
         <ul class="category">
-                        <% cannedResponses.forEach((cannedResponse) => { %>
-                <li><a href="/responses/<%= cannedResponse.slug %>"><%= cannedResponse.name %></a></li>
-            <% }) %>
+            <li><a href="/responses">Canned Response</a></li>
+            <li><a href="/suggestions">Response Suggestions</a></li>
+            <li><a href="/support">Support</a></li>
+            <li><a href="/my tickets">My Tickets</a></li>
+            <li><a href="/users">Users</a></li>
         </ul>
         <div>
             <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
@@ -18,20 +20,19 @@
             <div class="content-nav">
                 <a href="/dashboard" title="Dasboard Home Page"><i class="fa-solid fa-house"></i></a> |
                 <a href="/responses">Canned Responses</a> |
-                <a><%= category.name %></a> |
                 <!-- <button id="show-favorites">Show Favorites</button> -->
             </div>
 
             <div class="content">
-                <% category.responses.forEach((response) => { %>
+                <% cannedResponses.forEach((cannedResponse) => { %>
                     <div class="content-box">
                         <div class="shadow">
-                            <p><%= response.text %></p>
-
-                            <span class="button-container">
-                                <button class="copy-btn">Copy</button>
-                                <button class="favorite-btn">Add to Favorites</button>
-                            </span>
+                            <h1>
+                                <a href="/responses/<%= cannedResponse.slug %>">
+                                    <%= cannedResponse.name %>
+                                </a>
+                            </h1>
+                            <p><%= cannedResponse.description %></p>
                         </div>
                     </div>
                 <% }) %>
@@ -40,4 +41,4 @@
     </div>
 </main>
 
-<%- include('partials/dashboard/footer') %>
+<%- include('../partials/dashboard/footer') %>
