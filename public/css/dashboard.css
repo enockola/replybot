@@ -78,6 +78,11 @@ aside img {
     gap: 2rem;
 }
 
+.content h1{
+    text-align: center;
+}
+
+
 .content-nav {
     margin-left: 1rem;
     display: flex;
@@ -98,6 +103,7 @@ aside img {
 .content-box {
     max-width: 200px;
     font-size: 1rem;
+    margin: auto;
     transition: transform 0.2s ease;
 }
 
@@ -165,5 +171,14 @@ aside img {
     .content {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         margin: 0 3rem;
+        padding: 2rem;
+    }
+
+    .content-box{
+        margin: 0;
+    }
+        
+    .welcome{
+        font-size: 4rem;
     }
 }
