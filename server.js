@@ -161,7 +161,11 @@ app.get("/about", (req, res) => {
   res.render("about", { title: "About" });
 });
 
-// Course response list page
+app.get("/resources", (req, res) => {
+  res.render("resources", { title: "Resources" });
+});
+
+// Course response list and details page
 app.get("/responses", (req, res) => {
   console.log("Responses route hit");
   console.log("Canned responses:", cannedResponses);
@@ -172,8 +176,25 @@ app.get("/responses", (req, res) => {
   });
 });
 
-app.get("/resources", (req, res) => {
-  res.render("resources", { title: "Resources" });
+app.get('/responses/:slug', (req, res, next) => {
+  const slug = req.params.slug;
+
+  const responseCategory = cannedResponses.find(
+    category => category.slug === slug
+  );
+
+  if (!responseCategory) {
+    const err = new Error(`Response category "${slug}" not found`);
+    err.status = 404;
+    return next(err);
+  }
+
+  console.log('Viewing response category:', slug);
+
+  res.render('response-details', {
+    title: responseCategory.name,
+    category: responseCategory
+  });
 });
 
 app.get("/test-error", (req, res, next) => {
