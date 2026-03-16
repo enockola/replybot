@@ -32,7 +32,7 @@ The project demonstrates:
 
 ## Tasks
 - [x] Initialize Express project (ESM syntax)
-- [ ] Configure PostgreSQL connection
+- [x] Configure PostgreSQL connection
 - [x] Set up EJS with layouts and partials
 - [x] Configure error handling
 - [x] Create project folder structure:
@@ -63,18 +63,10 @@ The project demonstrates:
 
 ## Database
 - [ ] Create roles table
-- [ ] Create response categories table
+- [x] Create response categories table
+- [x] Create response list table
 - [ ] Create users table with foreign key to roles
 - [ ] Seed roles (Admin, Vendor, Standard User)
-
--- INSERT INTO response_categories (name, slug, description) VALUES
--- ('Intro', 'intro', 'Opening responses used to begin a conversation professionally.'),
--- ('Outro', 'outro', 'Closing responses used to end a conversation professionally.'),
--- ('Inactive', 'inactive', 'Follow-up responses for inactive conversations.'),
--- ('Survey', 'survey', 'Responses encouraging customer feedback.'),
--- ('Sympathy', 'sympathy', 'Empathetic responses for difficult situations.'),
--- ('Email', 'email', 'Longer-form email response templates.')
--- ON CONFLICT (slug) DO NOTHING;
 
 ## Implementation
 - [ ] Implement bcrypt password hashing
@@ -249,3 +241,21 @@ The project is complete when:
 - ERD is included in README
 - At least 15 meaningful commits exist
 - No major security issues remain
+
+
+---
+
+# Beyond Sprint 7 – Improvements
+
+**Goal:** Improve the quality, accesibility, userexperience.
+
+## Tasks
+- [ ] Add favorites functions for users to save their most used response
+- [ ] Allows users to track their most used responses
+- [ ] Add different color palettes for user personalization
+- [ ] Users can order the response categories however they choose
+- [ ] Real world user testing for feedback
+
+**Deliverable:** Better user experience.
+
+---
