@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 
 import routes from './src/controllers/routes.js';
 import { addLocalVariables } from "./src/middleware/global.js";
+import { setupDatabase, testConnection } from './src/models/setup.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -76,6 +77,14 @@ if (NODE_ENV.includes("dev")) {
   } catch (error) {
     console.error("Failed to start WebSocket server:", error);
   }
+}
+
+try {
+  await testConnection();
+  await setupDatabase();
+} catch (error) {
+  console.error('Server startup aborted:', error.message);
+  process.exit(1);
 }
 
 app.listen(PORT, () => {
