@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS response_categories (
     name VARCHAR(100) UNIQUE NOT NULL,
     slug VARCHAR(100) UNIQUE NOT NULL,
     description TEXT,
+    display_order INTEGER NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -32,7 +33,8 @@ CREATE TABLE IF NOT EXISTS canned_responses (
     created_by_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_category_content UNIQUE (category_id, content)
 );
 
 CREATE TABLE IF NOT EXISTS tickets (
