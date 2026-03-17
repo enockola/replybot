@@ -357,7 +357,7 @@ footer ul li a {
 /* Contact Form Styles */
 .contact-form {
     max-width: 600px;
-    margin: 2rem auto;
+    margin: 1rem auto 2rem;
     padding: 2rem;
     border: 1px solid #ddd;
     border-radius: 8px;
