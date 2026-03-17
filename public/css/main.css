@@ -354,7 +354,145 @@ footer ul li a {
 .copyright li {
     font-weight: 500;
 }
+/* Contact Form Styles */
+.contact-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
 
+.contact-form h1 {
+    color: #2c5aa0;
+    border-bottom: 2px solid #2c5aa0;
+    padding-bottom: 0.5rem;
+    margin: 0 0 1.5rem 0;
+    text-align: center;
+}
+
+.contact-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.contact-form .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-family: var(--heading-font);
+    color: #333;
+}
+
+.contact-form .form-group input,
+.contact-form .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: var(--paragraph-font);
+    transition: border-color 0.3s ease;
+}
+
+.contact-form .form-group input:focus,
+.contact-form .form-group textarea:focus {
+    outline: none;
+    border-color: #2c5aa0;
+}
+
+.contact-form .form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.contact-form button[type="submit"] {
+    width: 100%;
+    font-family: var(--heading-font);
+    padding: 1em;
+    background-color: var(--cobalt-color);
+    color: var(--nav-hover-link-color);
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form button[type="submit"]:hover {
+    background-color: var(--accent2-color);
+}
+
+/* Contact Responses Styles */
+.contact-responses {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.contact-responses .response-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-responses .response-item .response-subject {
+    color: #2c5aa0;
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+}
+
+.contact-responses .response-item .response-message {
+    color: #333;
+    line-height: 1.6;
+    margin: 0 0 1rem 0;
+    white-space: pre-wrap;
+}
+
+.contact-responses .response-item .response-user {
+    color: #666;
+    font-size: 0.875rem;
+    padding: 0;
+    margin: 0 0 0 1rem;
+    white-space: pre-wrap;
+}
+
+.contact-responses .response-item .response-date {
+    color: #666;
+    font-size: 0.875rem;
+    padding: 0;
+    margin: 0 0 0 1rem;
+}
+
+.contact-responses .response-item .response-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.contact-responses .no-responses {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 2rem;
+}
+
+.contact-responses button[type="submit"] {
+    font-family: var(--heading-font);
+    padding: 1em;
+    margin: 1rem;
+    margin-bottom: 0;
+    background-color: var(--cobalt-color);
+    color: var(--nav-hover-link-color);
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-responses button[type="submit"]:hover {
+    background-color: var(--accent2-color);
+}
 
 /* responsive stylings */
 

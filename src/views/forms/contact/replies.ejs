@@ -1,0 +1,28 @@
+<%- include('../../partials/header') %>
+<main class="container nav-adjust">
+    <h1>Contact Form Submissions</h1>
+
+    <% if (contactForms && contactForms.length > 0) { %>
+        <div class="contact-responses">
+            <% contactForms.forEach(form => { %>
+                <div class="response-item">
+                    <h3 class="response-subject"><%= form.subject %></h3>
+                    <p class="response-message"><%= form.message %></p>
+                    <div class="response-details">
+                        <p class="response-user">User: <%= form.name %></p>
+                        <p class="response-user">Email: <%= form.email %></p>
+                        <p class="response-date">Submitted: <%= new Date(form.submitted).toLocaleDateString() %></p>
+                    </div>
+                    <form action="/contact/replies/<%= form.id %>/delete" method="POST">
+                        <button class="link-btn" type="submit" onclick="return confirm('Delete this message?')">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <p class="no-responses">No contact form submissions yet.</p>
+    <% } %>
+</main>
+<%- include('../../partials/footer') %>
