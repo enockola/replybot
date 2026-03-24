@@ -354,6 +354,8 @@ footer ul li a {
 .copyright li {
     font-weight: 500;
 }
+
+
 /* Contact Form Styles */
 .contact-form {
     max-width: 600px;
@@ -492,6 +494,81 @@ footer ul li a {
 
 .contact-responses button[type="submit"]:hover {
     background-color: var(--accent2-color);
+}
+
+/* Registration Form Styles */
+.registration-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    .form-group {
+        margin-bottom: 1.5rem;
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+            &:focus {
+                outline: none;
+                border-color: #2c5aa0;
+                box-shadow: 0 0 5px rgba(44, 90, 160, 0.3);
+            }
+
+            &:invalid {
+                border-color: #dc3545;
+            }
+
+            &:valid {
+                border-color: #28a745;
+            }
+        }
+
+        .help-text {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 1rem;
+        background-color: #2c5aa0;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #1e3a6f;
+        }
+
+        &:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    }
 }
 
 /* responsive stylings */

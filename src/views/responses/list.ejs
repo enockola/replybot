@@ -3,7 +3,7 @@
 <main class="canned-response">
     <aside class="side-bar nav-adjust">
         <ul class="category">
-                        <% cannedResponses.forEach((cannedResponse) => { %>
+            <% cannedResponses.forEach((cannedResponse) => { %>
                 <li><a href="/responses/<%= cannedResponse.slug %>"><%= cannedResponse.name %></a></li>
             <% }) %>
         </ul>

@@ -155,6 +155,82 @@ aside img {
     flex-basis: 60%;
 }
 
+
+
+/* Users List Styles */
+.users-list {
+    max-width: 900px;
+    margin: 2rem auto;
+    gap: 1.5rem;
+}
+
+/* User Card */
+.users-list .user-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.users-list .user-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Header */
+.users-list .user-card .user-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #2c5aa0;
+}
+
+.users-list .user-card .user-header h3 {
+    margin: 0;
+    color: #2c5aa0;
+    font-size: 1.25rem;
+}
+
+.users-list .user-card .user-header .user-id {
+    background-color: #e9ecef;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Details */
+.users-list .user-card .user-details .detail-item {
+    margin-bottom: 0.75rem;
+}
+
+.users-list .user-card .user-details .detail-item:last-child {
+    margin-bottom: 0;
+}
+
+.users-list .user-card .user-details .detail-item .label {
+    font-weight: 500;
+    color: #666;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.users-list .user-card .user-details .detail-item .value {
+    color: #333;
+    font-size: 1rem;
+}
+
+/* No Users */
+.users-list .no-users {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    color: #666;
+    font-style: italic;
+}
+
 @media screen and (min-width: 700px) {
     aside {
         max-width: 300px;

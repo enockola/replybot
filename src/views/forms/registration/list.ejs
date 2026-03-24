@@ -1,0 +1,61 @@
+<%- include('../../partials/dashboard/header') %>
+
+<main class="canned-response">
+    <aside class="side-bar nav-adjust">
+        <ul class="category">
+            <li><a href="/responses">Canned Response</a></li>
+            <li><a href="/suggestions">Response Suggestions</a></li>
+            <li><a href="/support">Support</a></li>
+            <li><a href="/my tickets">My Tickets</a></li>
+            <li><a href="/register/list">Users</a></li>
+        </ul>
+        <div>
+            <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
+            <p>©2026. Replybot</p>
+        </div>
+    </aside>
+    <div class="nav-adjust">
+        <div class="content-container">
+            <div class="content-nav">
+                <a href="/dashboard" title="Dasboard Home Page"><i class="fa-solid fa-house"></i></a> |
+                <a href="/register/list" title="<%= title %>"><%= title %></a> |
+            </div>
+            <div class="content">
+
+                <% if (users && users.length > 0) { %>
+                    <div class="users-list content-box">
+                        <% users.forEach((user) => { %>
+                            <div class="user-card">
+                                <div class="user-header">
+                                    <h3><%= user.first_name %> <%= user.last_name %></h3>
+                                    <span class="user-id">ID: <%= user.id %></span>
+                                </div>
+
+                                <div class="user-details">
+                                    <div class="detail-item">
+                                        <div class="label">Email</div>
+                                        <div class="value"><%= user.email %></div>
+                                    </div>
+
+                                    <div class="detail-item">
+                                        <div class="label">Registered</div>
+                                        <div class="value"><%= new Date(user.created_at).toLocaleDateString() %></div>
+                                    </div>
+
+                                    <div class="detail-item">
+                                        <div class="label">Role ID</div>
+                                        <div class="value"><%= user.role_id %></div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <p class="no-users">No users registered yet.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../../partials/dashboard/footer') %>

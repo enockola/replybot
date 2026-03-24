@@ -16,6 +16,8 @@ import {
 
 import contactRoutes from './forms/contact.js';
 
+import registrationRoutes from './forms/registration.js';
+
 const router = Router();
 
 router.get('/', homePage);
@@ -28,6 +30,8 @@ router.get('/responses/:slug', responseDetailPage);
 
 // Contact form routes
 router.use('/contact', contactRoutes);
+
+router.use('/register', registrationRoutes);
 
 router.get('/test-error', testErrorPage);
 
