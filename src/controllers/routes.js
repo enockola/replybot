@@ -15,6 +15,7 @@ import registrationRoutes from './forms/registration.js';
 import loginRoutes from './forms/login.js';
 import { processLogout, showDashboard } from './forms/login.js';
 import { requireLogin } from '../middleware/auth.js';
+import ticketRoutes from './tickets/ticket.js';
 
 const router = Router();
 
@@ -34,6 +35,8 @@ router.get('/test-error', testErrorPage);
 
 // Login routes (form and submission)
 router.use('/login', loginRoutes);
+
+router.use('/tickets', ticketRoutes);
 
 // Authentication-related routes at root level
 router.get('/logout', processLogout);

@@ -1,0 +1,102 @@
+<%- include('../partials/dashboard/header') %>
+
+<main class="canned-response">
+    <aside class="side-bar nav-adjust">
+        <ul class="category">
+            <li><a href="/responses">Canned Response</a></li>
+            <li><a href="/tickets/new">New Ticket</a></li>
+            <li><a href="/tickets/my-tickets">My Tickets</a></li>
+            <li><a href="/register/list">Users</a></li>
+        </ul>
+        <div>
+            <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
+            <p>©2026. Replybot</p>
+        </div>
+    </aside>
+
+    <div class="nav-adjust">
+        <div class="content-container">
+            <div class="content-nav">
+                <a href="/dashboard"><i class="fa-solid fa-house"></i></a> |
+                <a href="/my-tickets">My Tickets</a> |
+                <a href="">Ticket #<%= ticket.id %></a>
+            </div>
+
+            <div class="content">
+                <h1><%= ticket.subject %></h1>
+                <p><strong>Status:</strong> <%= ticket.status %></p>
+                <p><strong>Created by:</strong> <%= ticket.first_name %> <%= ticket.last_name %></p>
+                <p><strong>Original message:</strong> <%= ticket.message %></p>
+
+                <hr>
+
+                <h2>Messages</h2>
+                <% if (messages && messages.length > 0) { %>
+                    <% messages.forEach(msg => { %>
+                        <div class="content-box" style="margin-bottom: 1rem;">
+                            <p>
+                                <strong>
+                                    <%= msg.first_name || 'Unknown' %> <%= msg.last_name || '' %>
+                                </strong>
+                                <% if (msg.roleName) { %>
+                                    (<%= msg.roleName %>)
+                                <% } %>
+                            </p>
+                            <p><%= msg.message %></p>
+                            <small><%= new Date(msg.created_at).toLocaleString() %></small>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>No replies yet.</p>
+                <% } %>
+
+                <h2>Add Reply</h2>
+                <form method="POST" action="/tickets/<%= ticket.id %>/messages" class="contact-form">
+                    <div class="form-group">
+                        <label for="message">Reply</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <button type="submit">Send Reply</button>
+                </form>
+
+                <% if (user && (user.roleName === 'admin' || user.roleName === 'vendor')) { %>
+                    <hr>
+                    <h2>Update Status</h2>
+                    <form method="POST" action="/tickets/<%= ticket.id %>/status">
+                        <select name="status">
+                            <option value="received">received</option>
+                            <option value="assigned">assigned</option>
+                            <option value="in_progress">in_progress</option>
+                            <option value="resolved">resolved</option>
+                            <option value="closed">closed</option>
+                        </select>
+                        <button type="submit">Update Status</button>
+                    </form>
+                <% } %>
+
+                <hr>
+
+                <h2>Status History</h2>
+                <% if (history && history.length > 0) { %>
+                    <ul>
+                        <% history.forEach(item => { %>
+                            <li>
+                                <strong><%= item.old_status || 'none' %></strong>
+                                →
+                                <strong><%= item.new_status %></strong>
+                                by
+                                <%= item.first_name || 'Unknown' %> <%= item.last_name || '' %>
+                                on
+                                <%= new Date(item.changed_at).toLocaleString() %>
+                            </li>
+                        <% }) %>
+                    </ul>
+                <% } else { %>
+                    <p>No status changes yet.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/dashboard/footer') %>

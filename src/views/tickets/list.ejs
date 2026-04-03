@@ -1,0 +1,47 @@
+<%- include('../partials/dashboard/header') %>
+
+<main class="canned-response">
+    <aside class="side-bar nav-adjust">
+        <ul class="category">
+            <li><a href="/responses">Canned Response</a></li>
+            <li><a href="/tickets/new">New Ticket</a></li>
+            <li><a href="/tickets/my-tickets">My Tickets</a></li>
+            <li><a href="/register/list">Users</a></li>
+        </ul>
+        <div>
+            <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
+            <p>©2026. Replybot</p>
+        </div>
+    </aside>
+
+    <div class="nav-adjust">
+        <div class="content-container">
+            <div class="content-nav">
+                <a href="/dashboard"><i class="fa-solid fa-house"></i></a> |
+                <a href="" title="<%= title %>"><%= title %></a> |
+            </div>
+
+            <h1 class="header"><%= title %></h1>
+
+            <div class="content">
+
+                <% if (tickets && tickets.length > 0) { %>
+                    <div class="users-list content-box">
+                        <% tickets.forEach(ticket => { %>
+                            <div class="user-card">
+                                <h3><%= ticket.subject %></h3>
+                                <p>Status: <strong><%= ticket.status %></strong></p>
+                                <p>Created: <%= new Date(ticket.created_at).toLocaleDateString() %></p>
+                                <a href="/tickets/<%= ticket.id %>">View Ticket</a>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <p>You have not created any tickets yet.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/dashboard/footer') %>
