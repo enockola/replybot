@@ -62,22 +62,22 @@ The project demonstrates:
 **Goal:** Secure user system with roles.
 
 ## Database
-- [ ] Create roles table
+- [x] Create roles table
 - [x] Create response categories table
 - [x] Create response list table
-- [ ] Create users table with foreign key to roles
-- [ ] Seed roles (Admin, Vendor, Standard User)
+- [x] Create users table with foreign key to roles
+- [] Seed roles (Admin, Vendor, Standard User)
 
 ## Implementation
 - [ ] Implement bcrypt password hashing
 - [ ] Configure express-session
 - [ ] Create login form
-- [ ] Create registration form
+- [x] Create registration form
 - [ ] Implement requireAuth middleware
 - [ ] Implement requireRole middleware
 - [ ] Protect admin-only routes
 - [ ] Protect vendor-specific routes
-- [ ] Secure session configuration:
+- [x] Secure session configuration:
   - httpOnly
   - sameSite
   - secure (production only)
