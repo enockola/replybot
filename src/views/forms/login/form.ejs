@@ -8,20 +8,27 @@
         Do not have an account? <a href="/register">Register here</a>.
     </p>
 
-    <!-- Display validation errors -->
-    <% if (errors && errors.length > 0) { %>
+    <% if (errorMessages && errorMessages.length > 0) { %>
         <div class="form-errors">
             <ul>
-                <% errors.forEach(error => { %>
-                    <li><%= error.msg %></li>
+                <% errorMessages.forEach(message => { %>
+                    <li><%= message %></li>
+                <% }) %>
+            </ul>
+        </div>
+    <% } %>
+
+    <% if (successMessages && successMessages.length > 0) { %>
+        <div class="form-success">
+            <ul>
+                <% successMessages.forEach(message => { %>
+                    <li><%= message %></li>
                 <% }) %>
             </ul>
         </div>
     <% } %>
 
     <form method="POST" action="/login" class="login-form">
-
-        <!-- Email field -->
         <div class="form-group">
             <label for="email">Email Address</label>
             <input 
@@ -34,7 +41,6 @@
             >
         </div>
 
-        <!-- Password field -->
         <div class="form-group">
             <label for="password">Password</label>
             <input 
@@ -47,13 +53,11 @@
             >
         </div>
 
-        <!-- Submit button -->
         <button type="submit">Sign In</button>
 
         <div class="form-footer">
             <p>New user? <a href="/register">Create an account</a></p>
         </div>
-
     </form>
 </main>
 

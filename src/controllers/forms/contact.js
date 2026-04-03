@@ -11,7 +11,6 @@ const router = Router();
 const showContactForm = (req, res) => {
     res.render('forms/contact/form', {
         title: 'Contact Us',
-        errors: [],
         formData: {}
     });
 };
@@ -20,26 +19,25 @@ const handleContactSubmission = async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        return res.status(400).render('forms/contact/form', {
-            title: 'Contact Us',
-            errors: errors.array(),
-            formData: req.body
+        errors.array().forEach(error => {
+            req.flash('error', error.msg);
         });
+
+        req.flash('formData', JSON.stringify(req.body));
+        return res.redirect('/contact');
     }
 
     const { name, email, subject, message } = req.body;
 
     try {
         await createContactForm(name, email, subject, message);
-        console.log('Contact form submitted successfully');
-        res.redirect('/contact/success');
+        req.flash('success', 'Thank you for contacting us! We will respond soon.');
+        return res.redirect('/contact');
     } catch (error) {
         console.error('Error saving contact form:', error);
-        res.status(500).render('forms/contact/form', {
-            title: 'Contact Us',
-            errors: [{ msg: 'Something went wrong. Please try again.' }],
-            formData: req.body
-        });
+        req.flash('error', 'Unable to submit your message. Please try again later.');
+        req.flash('formData', JSON.stringify(req.body));
+        return res.redirect('/contact');
     }
 };
 
@@ -56,6 +54,7 @@ const showContactResponses = async (req, res) => {
         contactForms = await getAllContactForms();
     } catch (error) {
         console.error('Error retrieving contact forms:', error);
+        req.flash('error', 'Unable to load contact form submissions.');
     }
 
     res.render('forms/contact/replies', {
@@ -71,17 +70,36 @@ const handleDeleteContactResponse = async (req, res) => {
         const deleted = await deleteContactFormById(id);
 
         if (!deleted) {
-            return res.status(404).send('Submission not found');
+            req.flash('error', 'Submission not found.');
+            return res.redirect('/contact/replies');
         }
 
-        res.redirect('/contact/replies');
+        req.flash('success', 'Submission deleted successfully.');
+        return res.redirect('/contact/replies');
     } catch (error) {
         console.error('Error deleting contact form:', error);
-        res.status(500).send('Could not delete submission');
+        req.flash('error', 'Could not delete submission.');
+        return res.redirect('/contact/replies');
     }
 };
 
-router.get('/', showContactForm);
+router.get('/', (req, res) => {
+    let formData = {};
+
+    const flashedFormData = req.flash('formData');
+    if (flashedFormData.length > 0) {
+        try {
+            formData = JSON.parse(flashedFormData[0]);
+        } catch {
+            formData = {};
+        }
+    }
+
+    res.render('forms/contact/form', {
+        title: 'Contact Us',
+        formData
+    });
+});
 
 router.post(
     '/',

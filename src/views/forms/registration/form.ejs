@@ -6,18 +6,28 @@
         Register for a new account by providing your information below. All fields are required and passwords must meet security requirements.
     </p>
 
-    <% if (errors && errors.length) { %>
+    <% if (errorMessages && errorMessages.length > 0) { %>
         <div class="form-errors">
             <ul>
-                <% errors.forEach((error) => { %>
-                    <li><%= error.msg %></li>
+                <% errorMessages.forEach(message => { %>
+                    <li><%= message %></li>
+                <% }) %>
+            </ul>
+        </div>
+    <% } %>
+
+    <% if (successMessages && successMessages.length > 0) { %>
+        <div class="form-success">
+            <ul>
+                <% successMessages.forEach(message => { %>
+                    <li><%= message %></li>
                 <% }) %>
             </ul>
         </div>
     <% } %>
 
     <form method="POST" action="/register" class="registration-form">
-        <!-- First name field -->
+        <!-- First name -->
         <div class="form-group">
             <label for="firstName">First Name</label>
             <input
@@ -31,7 +41,7 @@
             >
         </div>
 
-        <!-- Last name field -->
+        <!-- Last name -->
         <div class="form-group">
             <label for="lastName">Last Name</label>
             <input
@@ -45,7 +55,7 @@
             >
         </div>
 
-        <!-- Email field -->
+        <!-- Email -->
         <div class="form-group">
             <label for="email">Email Address</label>
             <input
@@ -58,7 +68,7 @@
             >
         </div>
 
-        <!-- Email confirmation field -->
+        <!-- Confirm email -->
         <div class="form-group">
             <label for="emailConfirm">Confirm Email Address</label>
             <input
@@ -71,7 +81,7 @@
             >
         </div>
 
-        <!-- Password field -->
+        <!-- Password -->
         <div class="form-group">
             <label for="password">Password</label>
             <input
@@ -88,7 +98,7 @@
             </div>
         </div>
 
-        <!-- Password confirmation field -->
+        <!-- Confirm password -->
         <div class="form-group">
             <label for="passwordConfirm">Confirm Password</label>
             <input
@@ -101,7 +111,6 @@
             >
         </div>
 
-        <!-- Submit button -->
         <button type="submit">Create Account</button>
     </form>
 </main>

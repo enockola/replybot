@@ -51,10 +51,20 @@ const registrationValidation = [
  * Display the registration form page.
  */
 const showRegistrationForm = (req, res) => {
+    let formData = {};
+
+    const flashedFormData = req.flash('formData');
+    if (flashedFormData.length > 0) {
+        try {
+            formData = JSON.parse(flashedFormData[0]);
+        } catch {
+            formData = {};
+        }
+    }
+
     res.render('forms/registration/form', {
         title: 'User Registration',
-        errors: [],
-        formData: {}
+        formData
     });
 };
 
@@ -65,13 +75,18 @@ const processRegistration = async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        console.error('Registration validation errors:', errors.array());
-
-        return res.status(400).render('forms/registration/form', {
-            title: 'User Registration',
-            errors: errors.array(),
-            formData: req.body
+        errors.array().forEach(error => {
+            req.flash('error', error.msg);
         });
+
+        req.flash('formData', JSON.stringify({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            emailConfirm: req.body.emailConfirm
+        }));
+
+        return res.redirect('/register');
     }
 
     const { firstName, lastName, email, password } = req.body;
@@ -80,13 +95,14 @@ const processRegistration = async (req, res) => {
         const doesEmailExist = await emailExists(email);
 
         if (doesEmailExist) {
-            console.error('Email already registered');
-
-            return res.status(400).render('forms/registration/form', {
-                title: 'User Registration',
-                errors: [{ msg: 'Email is already registered' }],
-                formData: req.body
-            });
+            req.flash('error', 'Email is already registered.');
+            req.flash('formData', JSON.stringify({
+                firstName,
+                lastName,
+                email,
+                emailConfirm: req.body.emailConfirm
+            }));
+            return res.redirect('/register');
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -96,16 +112,20 @@ const processRegistration = async (req, res) => {
 
         await saveUser(firstName, lastName, email, hashedPassword, roleId);
 
-        console.log('User registered successfully');
-        res.redirect('/register/list');
+        req.flash('success', 'Registration successful. You can now log in.');
+        return res.redirect('/login');
     } catch (error) {
         console.error('Error processing registration:', error);
+        req.flash('error', 'Something went wrong. Please try again.');
 
-        res.status(500).render('forms/registration/form', {
-            title: 'User Registration',
-            errors: [{ msg: 'Something went wrong. Please try again.' }],
-            formData: req.body
-        });
+        req.flash('formData', JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            emailConfirm: req.body.emailConfirm
+        }));
+
+        return res.redirect('/register');
     }
 };
 
@@ -119,6 +139,7 @@ const showAllUsers = async (req, res) => {
         users = await getAllUsers();
     } catch (error) {
         console.error('Error retrieving users:', error);
+        req.flash('error', 'Unable to load registered users.');
     }
 
     res.render('forms/registration/list', {

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <meta name="author" content="Enoch Olayemi">
+    <meta name="author" content="Enoch Olayemi">
     <meta name="description" content="ReplyBot is a customer support dashboard for managing canned responses, improving efficiency, and streamlining communication.">
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/main.css">
@@ -12,14 +12,10 @@
     <link rel="icon" href="/images/favicon.png" media="all" type="image/x-icon">
     <% if (NODE_ENV.includes('dev')) { %>
     <script>
-        // Get the current hostname and port from the browser
         const host = window.location.hostname;
         const currentPort = window.location.port;
-
-        // Calculate WebSocket port (current port + 1)
         const wsPort = currentPort ? (parseInt(currentPort) + 1) : 3001;
 
-        // Create WebSocket connection using dynamic hostname and port
         const ws = new WebSocket(`ws://${host}:${wsPort}`);
         ws.onclose = () => {
             setTimeout(() => location.reload(), 2000);
@@ -47,20 +43,49 @@
 
     <!-- header -->
     <header class="container">
+        <% const hasSuccessMessages = typeof successMessages !== 'undefined' && successMessages.length > 0; %>
+        <% const hasErrorMessages = typeof errorMessages !== 'undefined' && errorMessages.length > 0; %>
+
+        <% if (hasSuccessMessages || hasErrorMessages) { %>
+            <div class="flash-messages">
+                <% if (hasSuccessMessages) { %>
+                    <% successMessages.forEach(message => { %>
+                        <div class="flash success">
+                            <%= message %>
+                        </div>
+                    <% }) %>
+                <% } %>
+
+                <% if (hasErrorMessages) { %>
+                    <% errorMessages.forEach(message => { %>
+                        <div class="flash error">
+                            <%= message %>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+        <% } %>
+
         <nav>
             <img class="logo" src="/images/logo.png" width="113" height="113" alt="ReplyBot logo">
             <ul class="nav-list">
-                <!-- Only visible when logged in -->
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/resources">Resources</a></li>
+                <li><a href="/contact">Contact</a></li>
+
                 <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn) { %>
+                    <li><a href="/contact/replies">Contact Responses</a></li>
                     <li><a href="/dashboard">Dashboard</a></li>
                     <li><a href="/logout">Logout</a></li>
                 <% } %>
-                <!-- Only visible when NOT logged in -->
+
                 <% if (typeof isLoggedIn === 'undefined' || !isLoggedIn) { %>
                     <li><a href="/login">Login</a></li>
                     <li><a href="/register">Register</a></li>
                 <% } %>
             </ul>
+
             <div class="hamburger">
                 <i class="fa-solid fa-bars"></i>
             </div>

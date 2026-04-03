@@ -32,7 +32,9 @@ const addLocalVariables = (req, res, next) => {
     res.locals.isLoggedIn = !!req.session?.user;
     res.locals.user = req.session?.user || null;
 
-    console.log('addLocalVariables ran:', res.locals.isLoggedIn);
+    res.locals.successMessages = req.flash('success');
+    res.locals.errorMessages = req.flash('error');
+
     next();
 };
 

@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import session from 'express-session';
 import connectPgSimple from 'connect-pg-simple';
+import flash from 'connect-flash';
 import { caCert } from './src/models/db.js';
 import { startSessionCleanup } from './src/utils/session-cleanup.js';
 
@@ -45,6 +46,8 @@ app.use(session({
         maxAge: 24 * 60 * 60 * 1000
     }
 }));
+
+app.use(flash());
 
 // Start automatic session cleanup
 startSessionCleanup();

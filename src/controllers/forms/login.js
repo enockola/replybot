@@ -23,10 +23,20 @@ const loginValidation = [
  * Display the login form.
  */
 const showLoginForm = (req, res) => {
+    let formData = {};
+
+    const flashedFormData = req.flash('formData');
+    if (flashedFormData.length > 0) {
+        try {
+            formData = JSON.parse(flashedFormData[0]);
+        } catch {
+            formData = {};
+        }
+    }
+
     res.render('forms/login/form', {
         title: 'User Login',
-        errors: [],
-        formData: {}
+        formData
     });
 };
 
@@ -37,13 +47,15 @@ const processLogin = async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        console.error('Login validation errors:', errors.array());
-
-        return res.status(400).render('forms/login/form', {
-            title: 'User Login',
-            errors: errors.array(),
-            formData: req.body
+        errors.array().forEach(error => {
+            req.flash('error', error.msg);
         });
+
+        req.flash('formData', JSON.stringify({
+            email: req.body.email
+        }));
+
+        return res.redirect('/login');
     }
 
     const { email, password } = req.body;
@@ -52,25 +64,17 @@ const processLogin = async (req, res) => {
         const user = await findUserByEmail(email);
 
         if (!user) {
-            console.error('User not found');
-
-            return res.status(400).render('forms/login/form', {
-                title: 'User Login',
-                errors: [{ msg: 'Invalid email or password' }],
-                formData: req.body
-            });
+            req.flash('error', 'Invalid email or password.');
+            req.flash('formData', JSON.stringify({ email }));
+            return res.redirect('/login');
         }
 
         const isValidPassword = await verifyPassword(password, user.password_hash);
 
         if (!isValidPassword) {
-            console.error('Invalid password');
-
-            return res.status(400).render('forms/login/form', {
-                title: 'User Login',
-                errors: [{ msg: 'Invalid email or password' }],
-                formData: req.body
-            });
+            req.flash('error', 'Invalid email or password.');
+            req.flash('formData', JSON.stringify({ email }));
+            return res.redirect('/login');
         }
 
         // SECURITY: Remove password hash before storing in session
@@ -78,15 +82,13 @@ const processLogin = async (req, res) => {
 
         req.session.user = user;
 
-        res.redirect('/dashboard');
+        req.flash('success', 'You have logged in successfully.');
+        return res.redirect('/dashboard');
     } catch (error) {
         console.error('Error processing login:', error);
-
-        res.status(500).render('forms/login/form', {
-            title: 'User Login',
-            errors: [{ msg: 'Something went wrong. Please try again.' }],
-            formData: req.body
-        });
+        req.flash('error', 'Something went wrong. Please try again.');
+        req.flash('formData', JSON.stringify({ email }));
+        return res.redirect('/login');
     }
 };
 
@@ -106,7 +108,7 @@ const processLogout = (req, res) => {
         }
 
         res.clearCookie('connect.sid');
-        res.redirect('/');
+        return res.redirect('/');
     });
 };
 
@@ -117,7 +119,6 @@ const showDashboard = (req, res) => {
     const user = req.session.user;
     const sessionData = req.session;
 
-    // Security check
     if (user && user.password_hash) {
         console.error('Security error: password_hash found in user object');
         delete user.password_hash;
