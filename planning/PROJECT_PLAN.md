@@ -66,17 +66,17 @@ The project demonstrates:
 - [x] Create response categories table
 - [x] Create response list table
 - [x] Create users table with foreign key to roles
-- [] Seed roles (Admin, Vendor, Standard User)
+- [x] Seed roles (Admin, Vendor, Standard User)
 
 ## Implementation
-- [ ] Implement bcrypt password hashing
-- [ ] Configure express-session
-- [ ] Create login form
+- [x] Implement bcrypt password hashing
+- [x] Configure express-session
+- [x] Create login form
 - [x] Create registration form
-- [ ] Implement requireAuth middleware
-- [ ] Implement requireRole middleware
-- [ ] Protect admin-only routes
-- [ ] Protect vendor-specific routes
+- [x] Implement requireAuth middleware
+- [x] Implement requireRole middleware
+- [x] Protect admin-only routes
+- [x] Protect vendor-specific routes
 - [x] Secure session configuration:
   - httpOnly
   - sameSite
@@ -154,9 +154,9 @@ The project demonstrates:
 **Goal:** Provide full management interface.
 
 ## Admin Capabilities
-- [ ] View all users
+- [x] View all users
 - [ ] Change user roles
-- [ ] Delete users (with appropriate FK handling)
+- [x] Delete users (with appropriate FK handling)
 - [ ] View all tickets
 - [ ] Assign tickets to vendors
 - [ ] Moderate snippets
@@ -178,8 +178,8 @@ The project demonstrates:
 
 ## Tasks
 - [ ] Parameterized queries everywhere
-- [ ] Server-side validation for all forms
-- [ ] Prevent empty submissions
+- [x] Server-side validation for all forms
+- [x] Prevent empty submissions
 - [ ] Input sanitization
 - [ ] Proper error messages (no stack traces in production)
 - [ ] Test role-based route protection
@@ -194,10 +194,10 @@ The project demonstrates:
 **Goal:** Production-ready deployment and complete documentation.
 
 ## Deployment
-- [ ] Deploy to Render
-- [ ] Configure production PostgreSQL
-- [ ] Set environment variables
-- [ ] Ensure .env not committed
+- [x] Deploy to Render
+- [x] Configure production PostgreSQL
+- [x] Set environment variables
+- [x] Ensure .env not committed
 - [ ] Confirm no development-only code in production
 
 ## Documentation
