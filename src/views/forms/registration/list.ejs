@@ -14,46 +14,85 @@
             <p>©2026. Replybot</p>
         </div>
     </aside>
+
     <div class="nav-adjust">
         <div class="content-container">
             <div class="content-nav">
-                <a href="/dashboard" title="Dasboard Home Page"><i class="fa-solid fa-house"></i></a> |
+                <a href="/dashboard" title="Dashboard Home Page"><i class="fa-solid fa-house"></i></a> |
                 <a href="/register/list" title="<%= title %>"><%= title %></a> |
             </div>
-            <div class="content">
 
-                <% if (users && users.length > 0) { %>
-                    <div class="users-list content-box">
-                        <% users.forEach((user) => { %>
-                            <div class="user-card">
-                                <div class="user-header">
-                                    <h3><%= user.first_name %> <%= user.last_name %></h3>
-                                    <span class="user-id">ID: <%= user.id %></span>
+            <% if (users && users.length > 0) { %>
+                <div class="content users-list">
+                    <% users.forEach(listUser => { %>
+                        <%
+                            const currentUser = typeof isLoggedIn !== 'undefined' && isLoggedIn ? user : null;
+                            const currentUserRole = currentUser?.roleName || currentUser?.role || '';
+                            const listUserRole = listUser.roleName || listUser.role || '';
+
+                            const canEdit = currentUser && (
+                                currentUser.id === listUser.id || currentUserRole === 'admin'
+                            );
+
+                            const canDelete = currentUser &&
+                                currentUserRole === 'admin' &&
+                                currentUser.id !== listUser.id;
+                        %>
+
+                        <div class="user-card content-box">
+                            <div class="user-header">
+                                <h3><%= listUser.first_name %> <%= listUser.last_name %></h3>
+                                <span class="user-id">ID: <%= listUser.id %></span>
+                            </div>
+
+                            <div class="user-details">
+                                <div class="detail-item">
+                                    <div class="label">Email</div>
+                                    <div class="value"><%= listUser.email %></div>
                                 </div>
 
-                                <div class="user-details">
-                                    <div class="detail-item">
-                                        <div class="label">Email</div>
-                                        <div class="value"><%= user.email %></div>
+                                <div class="detail-item">
+                                    <div class="label">Registered</div>
+                                    <div class="value">
+                                        <%= new Date(listUser.created_at).toLocaleDateString() %>
                                     </div>
+                                </div>
 
-                                    <div class="detail-item">
-                                        <div class="label">Registered</div>
-                                        <div class="value"><%= new Date(user.created_at).toLocaleDateString() %></div>
-                                    </div>
+                                <div class="detail-item">
+                                    <div class="label">Role ID</div>
+                                    <div class="value"><%= listUser.role_id %></div>
+                                </div>
 
-                                    <div class="detail-item">
-                                        <div class="label">Role ID</div>
-                                        <div class="value"><%= user.role_id %></div>
-                                    </div>
+                                <div class="detail-item">
+                                    <span class="label">Role:</span>
+                                    <span class="value"><%= listUserRole %></span>
                                 </div>
                             </div>
-                        <% }) %>
-                    </div>
-                <% } else { %>
-                    <p class="no-users">No users registered yet.</p>
-                <% } %>
-            </div>
+
+                            <% if (canEdit || canDelete) { %>
+                                <div class="user-actions">
+                                    <% if (canEdit) { %>
+                                        <a href="/register/<%= listUser.id %>/edit">Edit</a>
+                                    <% } %>
+
+                                    <% if (canDelete) { %>
+                                        <form method="POST" action="/register/<%= listUser.id %>/delete" style="display: inline;">
+                                            <button
+                                                type="submit"
+                                                onclick="return confirm('Are you sure you want to delete this user?')"
+                                            >
+                                                Delete
+                                            </button>
+                                        </form>
+                                    <% } %>
+                                </div>
+                            <% } %>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <p class="no-users">No users registered yet.</p>
+            <% } %>
         </div>
     </div>
 </main>

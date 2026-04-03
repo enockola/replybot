@@ -30,9 +30,7 @@
         |
       </div>
 
-      <div class="content">
-        <h1 class="welcome">Welcome <%= user.first_name %>!</h1>
-      </div>
+      <h1 class="header welcome">Welcome <%= user.first_name %>!</h1>
 
       <div class="dashboard">
         <div class="user-info">
@@ -46,6 +44,11 @@
           <div class="user-detail">
             <span class="label">Email:</span>
             <span class="value"><%= user.email %></span>
+          </div>
+
+          <div class="user-detail">
+            <span class="label">Role:</span>
+            <span class="value"><%= user.roleName %></span>
           </div>
 
           <div class="user-detail">

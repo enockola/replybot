@@ -71,11 +71,19 @@ aside img {
     background-color: var(--nav-hover-background-color);
 }
 
+.header {
+    text-align: center;
+}
+
 .content {
     padding: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 2rem;
+}
+
+.ungrid-content{
+    padding: 1rem;
 }
 
 .content h1{
@@ -101,7 +109,6 @@ aside img {
 }
 
 .content-box {
-    max-width: 200px;
     font-size: 1rem;
     margin: auto;
     transition: transform 0.2s ease;
@@ -156,13 +163,6 @@ aside img {
 }
 
 
-
-/* Users List Styles */
-.users-list {
-    max-width: 900px;
-    margin: 2rem auto;
-    gap: 1.5rem;
-}
 
 /* User Card */
 .users-list .user-card {
@@ -236,7 +236,7 @@ aside img {
     padding: 1rem;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 2rem;
+    gap: 1rem;
 }
 
 
@@ -302,6 +302,10 @@ aside img {
     .category {
         font-size: 1.5em;
     }
+    
+    .users-list {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    }
 
     .content {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -315,5 +319,9 @@ aside img {
         
     .welcome{
         font-size: 4rem;
+    }
+
+    .dashboard {
+        gap: 2rem;
     }
 }
