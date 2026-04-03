@@ -18,6 +18,8 @@ const PORT = Number(process.env.PORT) || 3000;
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 // Initialize PostgreSQL session store
 const pgSession = connectPgSimple(session);
 
