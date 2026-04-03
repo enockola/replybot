@@ -22,7 +22,7 @@ const caCert = fs.readFileSync(path.join(__dirname, '../../bin', 'byuicse-psql-c
  */
 const pool = new Pool({
     connectionString: process.env.DB_URL,
-    max: 3,
+    max: 2,
     idleTimeoutMillis: 10000,
     connectionTimeoutMillis: 5000,
     ssl: {
