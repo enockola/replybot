@@ -63,10 +63,17 @@
                 <li><a href="/about">About</a></li>
                 <li><a href="/resources">Resources</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="/contact/replies">Contact Responses</a></li>
-                <li><a href="/dashboard">Log In</a></li>
-                <li><a href="/register">Register</a></li>
-                
+                <!-- Only visible when logged in -->
+                <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn) { %>
+                    <li><a href="/contact/replies">Contact Responses</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } %>
+                <!-- Only visible when NOT logged in -->
+                <% if (typeof isLoggedIn === 'undefined' || !isLoggedIn) { %>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                <% } %>
             </ul>
             <div class="hamburger">
                 <i class="fa-solid fa-bars"></i>

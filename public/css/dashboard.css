@@ -47,7 +47,7 @@ aside img {
 
 /* nav-adjust */
 .nav-adjust {
-    flex-basis: 70%;
+    flex-basis: 100%;
 }
 
 .content-container {
@@ -230,6 +230,65 @@ aside img {
     color: #666;
     font-style: italic;
 }
+
+/* Dashboard Styles */
+.dashboard {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 2rem;
+}
+
+
+.user-info,
+.session-debug {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    height: fit-content;
+    margin-bottom: 2rem;
+
+    h2,
+    h3 {
+        color: #2c5aa0;
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+
+    .user-detail {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+
+        .label {
+            font-weight: bold;
+            color: #495057;
+            display: inline-block;
+            width: 120px;
+        }
+
+        .value {
+            color: #333;
+        }
+    }
+}
+
+.session-debug {
+    pre {
+        background-color: #f1f3f4;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        padding: 1rem;
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+}
+
+
 
 @media screen and (min-width: 700px) {
     aside {

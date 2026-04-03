@@ -50,7 +50,16 @@
         <nav>
             <img class="logo" src="/images/logo.png" width="113" height="113" alt="ReplyBot logo">
             <ul class="nav-list">
-                <li><a href="/">Log Out</a></li>
+                <!-- Only visible when logged in -->
+                <% if (typeof isLoggedIn !== 'undefined' && isLoggedIn) { %>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                <% } %>
+                <!-- Only visible when NOT logged in -->
+                <% if (typeof isLoggedIn === 'undefined' || !isLoggedIn) { %>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                <% } %>
             </ul>
             <div class="hamburger">
                 <i class="fa-solid fa-bars"></i>

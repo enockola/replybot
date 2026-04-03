@@ -1,0 +1,60 @@
+<%- include('../../partials/header') %>
+
+<main class="container nav-adjust">
+    <h1><%= title %></h1>
+
+    <p>
+        Enter your email and password to access your account.
+        Do not have an account? <a href="/register">Register here</a>.
+    </p>
+
+    <!-- Display validation errors -->
+    <% if (errors && errors.length > 0) { %>
+        <div class="form-errors">
+            <ul>
+                <% errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }) %>
+            </ul>
+        </div>
+    <% } %>
+
+    <form method="POST" action="/login" class="login-form">
+
+        <!-- Email field -->
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input 
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                value="<%= formData?.email || '' %>"
+                required
+            >
+        </div>
+
+        <!-- Password field -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input 
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                minlength="8"
+                required
+            >
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit">Sign In</button>
+
+        <div class="form-footer">
+            <p>New user? <a href="/register">Create an account</a></p>
+        </div>
+
+    </form>
+</main>
+
+<%- include('../../partials/footer') %>
