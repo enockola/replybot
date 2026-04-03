@@ -4,10 +4,15 @@
     <aside class="side-bar nav-adjust">
         <ul class="category">
             <li><a href="/responses">Canned Response</a></li>
-            <li><a href="/tickets/new">New Ticket</a></li>
-            <li><a href="/tickets/my-tickets">My Tickets</a></li>
+            <li><a href="/tickets">Tickets</a></li>
+
+            <% if (user && (user.roleName === 'admin' || user.roleName === 'vendor')) { %>
+                <li><a href="/tickets/support">Support</a></li>
+            <% } %>
+
             <li><a href="/register/list">Users</a></li>
         </ul>
+
         <div>
             <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
             <p>©2026. Replybot</p>
@@ -18,12 +23,13 @@
         <div class="content-container">
             <div class="content-nav">
                 <a href="/dashboard"><i class="fa-solid fa-house"></i></a> |
+                <a href="/tickets">Tickets</a> |
                 <a href="" title="<%= title %>"><%= title %></a> 
             </div>
 
             <h1 class="header"><%= title %></h1>
 
-            <div class="content">
+            <div class="ungrid-content">
 
                 <form method="POST" action="/tickets" class="contact-form">
                     <div class="form-group">

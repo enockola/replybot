@@ -4,10 +4,15 @@
     <aside class="side-bar nav-adjust">
         <ul class="category">
             <li><a href="/responses">Canned Response</a></li>
-            <li><a href="/tickets/new">New Ticket</a></li>
-            <li><a href="/tickets/my-tickets">My Tickets</a></li>
+            <li><a href="/tickets">Tickets</a></li>
+            
+            <% if (user && (user.roleName === 'admin' || user.roleName === 'vendor')) { %>
+                <li><a href="/tickets/support">Support</a></li>
+            <% } %>
+
             <li><a href="/register/list">Users</a></li>
         </ul>
+
         <div>
             <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
             <p>©2026. Replybot</p>
@@ -17,4 +22,78 @@
     <div class="nav-adjust">
         <div class="content-container">
             <div class="content-nav">
-                <a href="/dashboard"><i class="fa-solid fa-house"></i></a>
+                <a href="/dashboard" title="Dashboard Home Page">
+                    <i class="fa-solid fa-house"></i>
+                </a> |
+                <a href="/tickets">Tickets</a> |
+                <a href="/tickets/support" title="Support Dashboard">Support Dashboard</a> |
+            </div>
+
+            <h1 class="header"><%= title %></h1>
+
+            <% if (tickets && tickets.length > 0) { %>
+                <div class="users-list content">
+                    <% tickets.forEach(ticket => { %>
+                        <div class="user-card content-box">
+                            <div class="user-header">
+                                <h3><%= ticket.subject %></h3>
+                                <span class="user-id">Ticket #<%= ticket.id %></span>
+                            </div>
+
+                            <div class="user-details">
+                                <div class="detail-item">
+                                    <div class="label">Submitted By</div>
+                                    <div class="value">
+                                        <%= ticket.first_name %> <%= ticket.last_name %>
+                                    </div>
+                                </div>
+
+                                <div class="detail-item">
+                                    <div class="label">Email</div>
+                                    <div class="value"><%= ticket.email %></div>
+                                </div>
+
+                                <div class="detail-item">
+                                    <div class="label">Status</div>
+                                    <div class="value ticket-status <%= ticket.status %>">
+                                        <%= ticket.status %>
+                                    </div>
+                                </div>
+
+                                <div class="detail-item">
+                                    <div class="label">Assigned Vendor</div>
+                                    <div class="value">
+                                        <%= ticket.assigned_vendor_id || 'Unassigned' %>
+                                    </div>
+                                </div>
+
+                                <div class="detail-item">
+                                    <div class="label">Created</div>
+                                    <div class="value">
+                                        <%= new Date(ticket.created_at).toLocaleString() %>
+                                    </div>
+                                </div>
+
+                                <div class="detail-item">
+                                    <div class="label">Updated</div>
+                                    <div class="value">
+                                        <%= new Date(ticket.updated_at).toLocaleString() %>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="user-actions">
+                                <a href="/tickets/<%= ticket.id %>">Open Ticket</a>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <p class="no-users">No tickets found.</p>
+            <% } %>
+
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/dashboard/footer') %>

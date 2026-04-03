@@ -34,6 +34,13 @@ const messageValidation = [
         .withMessage('Message cannot be empty')
 ];
 
+const showTicketPortal = (req, res) => {
+    res.render('tickets/portal', {
+        title: 'Tickets',
+        currentUser: req.session.user
+    });
+};
+
 /**
  * Show new ticket form
  */
@@ -104,12 +111,20 @@ const showMyTickets = async (req, res) => {
  * Show all tickets for admin/vendor
  */
 const showAllSupportTickets = async (req, res) => {
+    const currentUser = req.session.user;
+
+    if (currentUser.roleName !== 'admin' && currentUser.roleName !== 'vendor') {
+        req.flash('error', 'You do not have permission to view support tickets.');
+        return res.redirect('/dashboard');
+    }
+
     try {
         const tickets = await getAllTickets();
 
         res.render('tickets/admin-list', {
-            title: 'All Tickets',
-            tickets
+            title: 'Support Dashboard',
+            tickets,
+            user: currentUser
         });
     } catch (error) {
         console.error('Error loading all tickets:', error);
@@ -245,6 +260,7 @@ const processTicketStatusUpdate = async (req, res) => {
     }
 };
 
+router.get('/', requireLogin, showTicketPortal);
 router.get('/new', requireLogin, showNewTicketForm);
 router.post('/', requireLogin, ticketValidation, handleCreateTicket);
 router.get('/my-tickets', requireLogin, showMyTickets);

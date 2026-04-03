@@ -41,10 +41,11 @@ const getAllTickets = async () => {
     const query = `
         SELECT
             tickets.id,
+            tickets.user_id,
+            tickets.assigned_vendor_id,
             tickets.subject,
             tickets.message,
             tickets.status,
-            tickets.assigned_vendor_id,
             tickets.created_at,
             tickets.updated_at,
             users.first_name,

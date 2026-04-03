@@ -231,6 +231,149 @@ aside img {
     font-style: italic;
 }
 
+.ungrid-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.ticket-summary-card,
+.ticket-section {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ticket-summary-card h1 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    line-height: 1.2;
+}
+
+.ticket-summary-card p {
+    margin: 0;
+}
+
+.ticket-original-message {
+    background: #f8f9fb;
+    padding: 1rem;
+    border-radius: 12px;
+    line-height: 1.6;
+    border-left: 4px solid #d0d7e2;
+}
+
+.ticket-section h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.35rem;
+}
+
+.ticket-message-card {
+    background: #f8f9fb;
+    border: 1px solid #e4e8ee;
+    border-radius: 14px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.ticket-message-card p {
+    margin: 0.35rem 0;
+    line-height: 1.5;
+}
+
+.ticket-message-card small {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: #666;
+}
+
+.ticket-status-badge {
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    margin-left: 0.4rem;
+}
+
+.ticket-status-badge.received {
+    background: #eef2ff;
+    color: #3347a9;
+}
+
+.ticket-status-badge.assigned {
+    background: #fff4e5;
+    color: #a66300;
+}
+
+.ticket-status-badge.in_progress {
+    background: #e8f7ff;
+    color: #005f8f;
+}
+
+.ticket-status-badge.resolved {
+    background: #e8f8ee;
+    color: #1f7a3f;
+}
+
+.ticket-status-badge.closed {
+    background: #f1f1f1;
+    color: #555;
+}
+
+.ticket-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.ticket-status-form {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.ticket-status-form select {
+    min-width: 180px;
+    padding: 0.7rem 0.9rem;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+.ticket-status-form button,
+.ticket-form button {
+    padding: 0.75rem 1.1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.ticket-section ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.ticket-section ul li {
+    background: #f8f9fb;
+    border: 1px solid #e4e8ee;
+    border-radius: 12px;
+    padding: 0.9rem 1rem;
+    margin-bottom: 0.8rem;
+    line-height: 1.5;
+}
+
+.ticket-section hr,
+.ungrid-content hr {
+    display: none;
+}
+
 /* Dashboard Styles */
 .dashboard {
     padding: 1rem;

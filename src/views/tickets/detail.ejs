@@ -4,10 +4,15 @@
     <aside class="side-bar nav-adjust">
         <ul class="category">
             <li><a href="/responses">Canned Response</a></li>
-            <li><a href="/tickets/new">New Ticket</a></li>
-            <li><a href="/tickets/my-tickets">My Tickets</a></li>
+            <li><a href="/tickets">Tickets</a></li>
+
+            <% if (user && (user.roleName === 'admin' || user.roleName === 'vendor')) { %>
+                <li><a href="/tickets/support">Support</a></li>
+            <% } %>
+
             <li><a href="/register/list">Users</a></li>
         </ul>
+
         <div>
             <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
             <p>©2026. Replybot</p>
@@ -17,83 +22,139 @@
     <div class="nav-adjust">
         <div class="content-container">
             <div class="content-nav">
-                <a href="/dashboard"><i class="fa-solid fa-house"></i></a> |
-                <a href="/my-tickets">My Tickets</a> |
-                <a href="">Ticket #<%= ticket.id %></a>
+                <a href="/dashboard" title="Dashboard Home Page">
+                    <i class="fa-solid fa-house"></i>
+                </a> |
+                <a href="/tickets" title="Tickets">Tickets</a> |
+                <a href="/tickets/my-tickets" title="My Tickets">My Tickets</a> |
+                <a href="" >Ticket #<%= ticket.id %></a>
             </div>
 
-            <div class="content">
-                <h1><%= ticket.subject %></h1>
-                <p><strong>Status:</strong> <%= ticket.status %></p>
-                <p><strong>Created by:</strong> <%= ticket.first_name %> <%= ticket.last_name %></p>
-                <p><strong>Original message:</strong> <%= ticket.message %></p>
+            <div class="ungrid-content">
+                <div class="ticket-summary-card">
+                    <h1><%= ticket.subject %></h1>
 
-                <hr>
+                    <p>
+                        <strong>Status:</strong>
+                        <span class="ticket-status-badge <%= ticket.status %>">
+                            <%= ticket.status %>
+                        </span>
+                    </p>
 
-                <h2>Messages</h2>
-                <% if (messages && messages.length > 0) { %>
-                    <% messages.forEach(msg => { %>
-                        <div class="content-box" style="margin-bottom: 1rem;">
-                            <p>
-                                <strong>
-                                    <%= msg.first_name || 'Unknown' %> <%= msg.last_name || '' %>
-                                </strong>
-                                <% if (msg.roleName) { %>
-                                    (<%= msg.roleName %>)
-                                <% } %>
-                            </p>
-                            <p><%= msg.message %></p>
-                            <small><%= new Date(msg.created_at).toLocaleString() %></small>
+                    <p>
+                        <strong>Created by:</strong>
+                        <%= ticket.first_name %> <%= ticket.last_name %>
+                    </p>
+
+                    <% if (ticket.email) { %>
+                        <p>
+                            <strong>Email:</strong>
+                            <%= ticket.email %>
+                        </p>
+                    <% } %>
+
+                    <p>
+                        <strong>Created:</strong>
+                        <%= new Date(ticket.created_at).toLocaleString() %>
+                    </p>
+
+                    <% if (ticket.updated_at) { %>
+                        <p>
+                            <strong>Last Updated:</strong>
+                            <%= new Date(ticket.updated_at).toLocaleString() %>
+                        </p>
+                    <% } %>
+
+                    <% if (ticket.assigned_vendor_id) { %>
+                        <p>
+                            <strong>Assigned Vendor ID:</strong>
+                            <%= ticket.assigned_vendor_id %>
+                        </p>
+                    <% } %>
+
+                    <p><strong>Original Message:</strong></p>
+                    <p class="ticket-original-message"><%= ticket.message %></p>
+                </div>
+
+                <section class="ticket-section">
+                    <h2>Messages</h2>
+
+                    <% if (messages && messages.length > 0) { %>
+                        <% messages.forEach(msg => { %>
+                            <div class="ticket-message-card">
+                                <p>
+                                    <strong>
+                                        <%= msg.first_name || 'Unknown' %> <%= msg.last_name || '' %>
+                                    </strong>
+                                    <% if (msg.roleName) { %>
+                                        (<%= msg.roleName %>)
+                                    <% } %>
+                                </p>
+
+                                <p><%= msg.message %></p>
+                                <small><%= new Date(msg.created_at).toLocaleString() %></small>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p>No replies yet.</p>
+                    <% } %>
+                </section>
+
+                <section class="ticket-section">
+                    <h2>Add Reply</h2>
+
+                    <form method="POST" action="/tickets/<%= ticket.id %>/messages" class="contact-form ticket-form">
+                        <div class="form-group">
+                            <label for="message">Reply</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
                         </div>
-                    <% }) %>
-                <% } else { %>
-                    <p>No replies yet.</p>
-                <% } %>
 
-                <h2>Add Reply</h2>
-                <form method="POST" action="/tickets/<%= ticket.id %>/messages" class="contact-form">
-                    <div class="form-group">
-                        <label for="message">Reply</label>
-                        <textarea id="message" name="message" rows="4" required></textarea>
-                    </div>
-                    <button type="submit">Send Reply</button>
-                </form>
+                        <button type="submit">Send Reply</button>
+                    </form>
+                </section>
 
                 <% if (user && (user.roleName === 'admin' || user.roleName === 'vendor')) { %>
-                    <hr>
-                    <h2>Update Status</h2>
-                    <form method="POST" action="/tickets/<%= ticket.id %>/status">
-                        <select name="status">
-                            <option value="received">received</option>
-                            <option value="assigned">assigned</option>
-                            <option value="in_progress">in_progress</option>
-                            <option value="resolved">resolved</option>
-                            <option value="closed">closed</option>
-                        </select>
-                        <button type="submit">Update Status</button>
-                    </form>
+                    <section class="ticket-section">
+                        <h2>Update Status</h2>
+
+                        <form method="POST" action="/tickets/<%= ticket.id %>/status" class="ticket-status-form">
+                            <select name="status" required>
+                                <option value="received" <%= ticket.status === 'received' ? 'selected' : '' %>>received</option>
+                                <option value="assigned" <%= ticket.status === 'assigned' ? 'selected' : '' %>>assigned</option>
+                                <option value="in_progress" <%= ticket.status === 'in_progress' ? 'selected' : '' %>>in_progress</option>
+                                <option value="resolved" <%= ticket.status === 'resolved' ? 'selected' : '' %>>resolved</option>
+                                <option value="closed" <%= ticket.status === 'closed' ? 'selected' : '' %>>closed</option>
+                            </select>
+
+                            <button type="submit">Update Status</button>
+                        </form>
+                    </section>
                 <% } %>
 
-                <hr>
+                <section class="ticket-section">
+                    <h2>Status History</h2>
 
-                <h2>Status History</h2>
-                <% if (history && history.length > 0) { %>
-                    <ul>
-                        <% history.forEach(item => { %>
-                            <li>
-                                <strong><%= item.old_status || 'none' %></strong>
-                                →
-                                <strong><%= item.new_status %></strong>
-                                by
-                                <%= item.first_name || 'Unknown' %> <%= item.last_name || '' %>
-                                on
-                                <%= new Date(item.changed_at).toLocaleString() %>
-                            </li>
-                        <% }) %>
-                    </ul>
-                <% } else { %>
-                    <p>No status changes yet.</p>
-                <% } %>
+                    <% if (history && history.length > 0) { %>
+                        <ul class="ticket-history-list">
+                            <% history.forEach(item => { %>
+                                <li class="ticket-history-item">
+                                    <p>
+                                        <strong><%= item.old_status || 'none' %></strong>
+                                        →
+                                        <strong><%= item.new_status %></strong>
+                                    </p>
+                                    <p>
+                                        Changed by
+                                        <%= item.first_name || 'Unknown' %> <%= item.last_name || '' %>
+                                    </p>
+                                    <small><%= new Date(item.changed_at).toLocaleString() %></small>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <p>No status changes yet.</p>
+                    <% } %>
+                </section>
             </div>
         </div>
     </div>

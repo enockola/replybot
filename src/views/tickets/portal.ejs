@@ -1,0 +1,85 @@
+<%- include('../partials/dashboard/header') %>
+
+<main class="canned-response">
+    <aside class="side-bar nav-adjust">
+        <ul class="category">
+            <li><a href="/responses">Canned Response</a></li>
+            <li><a href="/tickets">Tickets</a></li>
+            
+            <% if (user && (user.roleName === 'admin' || user.roleName === 'vendor')) { %>
+                <li><a href="/tickets/support">Support</a></li>
+            <% } %>
+
+            <li><a href="/register/list">Users</a></li>
+        </ul>
+
+        <div>
+            <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
+            <p>©2026. Replybot</p>
+        </div>
+    </aside>
+
+    <div class="nav-adjust">
+        <div class="content-container">
+            <div class="content-nav">
+                <a href="/dashboard" title="Dashboard Home Page">
+                    <i class="fa-solid fa-house"></i>
+                </a> |
+                <a href="/tickets">Tickets</a> |
+            </div>
+
+            <div class="ungrid-content">
+                <h1 class="header">Tickets</h1>
+                <p>Manage your support requests from one place.</p>
+
+                <div class="users-list content">
+                    <div class="user-card content-box">
+                        <div class="user-header">
+                            <h3>Create New Ticket</h3>
+                        </div>
+                        <div class="user-details">
+                            <div class="detail-item">
+                                <div class="value">Submit a new support request for issues you are experiencing.</div>
+                            </div>
+                        </div>
+                        <div class="user-actions">
+                            <a href="/tickets/new">Create Ticket</a>
+                        </div>
+                    </div>
+
+                    <div class="user-card content-box">
+                        <div class="user-header">
+                            <h3>View My Tickets</h3>
+                        </div>
+                        <div class="user-details">
+                            <div class="detail-item">
+                                <div class="value">Check your submitted tickets, replies, and ticket status history.</div>
+                            </div>
+                        </div>
+                        <div class="user-actions">
+                            <a href="/tickets/my-tickets">View My Tickets</a>
+                        </div>
+                    </div>
+
+                    <% if (currentUser && (currentUser.roleName === 'admin' || currentUser.roleName === 'vendor')) { %>
+                        <div class="user-card content-box">
+                            <div class="user-header">
+                                <h3>Support Dashboard</h3>
+                            </div>
+                            <div class="user-details">
+                                <div class="detail-item">
+                                    <div class="value">Review all support tickets, reply to users, and update ticket statuses.</div>
+                                </div>
+                            </div>
+                            <div class="user-actions">
+                                <a href="/tickets/support">Open Support</a>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/dashboard/footer') %>
