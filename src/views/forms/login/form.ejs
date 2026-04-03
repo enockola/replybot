@@ -8,26 +8,6 @@
         Do not have an account? <a href="/register">Register here</a>.
     </p>
 
-    <% if (errorMessages && errorMessages.length > 0) { %>
-        <div class="form-errors">
-            <ul>
-                <% errorMessages.forEach(message => { %>
-                    <li><%= message %></li>
-                <% }) %>
-            </ul>
-        </div>
-    <% } %>
-
-    <% if (successMessages && successMessages.length > 0) { %>
-        <div class="form-success">
-            <ul>
-                <% successMessages.forEach(message => { %>
-                    <li><%= message %></li>
-                <% }) %>
-            </ul>
-        </div>
-    <% } %>
-
     <form method="POST" action="/login" class="login-form">
         <div class="form-group">
             <label for="email">Email Address</label>

@@ -114,6 +114,7 @@ const processRegistration = async (req, res) => {
 
         req.flash('success', 'Registration successful. You can now log in.');
         return res.redirect('/login');
+        
     } catch (error) {
         console.error('Error processing registration:', error);
         req.flash('error', 'Something went wrong. Please try again.');

@@ -24,19 +24,23 @@ const handleContactSubmission = async (req, res) => {
         });
 
         req.flash('formData', JSON.stringify(req.body));
-        return res.redirect('/contact');
+        return res.redirect('/contact'); 
     }
 
     const { name, email, subject, message } = req.body;
 
     try {
         await createContactForm(name, email, subject, message);
+
         req.flash('success', 'Thank you for contacting us! We will respond soon.');
-        return res.redirect('/contact');
+        return res.redirect('/contact/success'); 
+
     } catch (error) {
         console.error('Error saving contact form:', error);
+
         req.flash('error', 'Unable to submit your message. Please try again later.');
         req.flash('formData', JSON.stringify(req.body));
+
         return res.redirect('/contact');
     }
 };

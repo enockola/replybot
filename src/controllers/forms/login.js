@@ -81,9 +81,18 @@ const processLogin = async (req, res) => {
         delete user.password_hash;
 
         req.session.user = user;
-
         req.flash('success', 'You have logged in successfully.');
-        return res.redirect('/dashboard');
+
+        return req.session.save((err) => {
+            if (err) {
+                console.error('Error saving session during login:', err);
+                req.flash('error', 'Unable to log in right now. Please try again.');
+                return res.redirect('/login');
+            }
+
+            return res.redirect('/dashboard');
+        });
+
     } catch (error) {
         console.error('Error processing login:', error);
         req.flash('error', 'Something went wrong. Please try again.');

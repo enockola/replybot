@@ -678,45 +678,76 @@ footer ul li a {
 
 /* Flash Messages */
 .flash-messages {
-    position: relative;
-    z-index: 999;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: min(420px, calc(100% - 40px));
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 2000;
     font-family: var(--paragraph-font);
-    margin: 1rem auto;
-    max-width: 1200px;
-    padding: 0 1rem;
+}
 
-    .flash {
-        padding: 1rem 1.25rem;
-        margin-bottom: 1rem;
-        border-radius: 4px;
-        border-left: 4px solid;
-        font-size: 0.95rem;
-        line-height: 1.5;
+.flash {
+    position: relative;
+    padding: 14px 48px 14px 16px;
+    border-radius: 10px;
+    border-left: 5px solid;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.14);
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
 
-        &.success {
-            background-color: #d4edda;
-            border-color: #28a745;
-            color: #155724;
-        }
+.flash.success {
+    background-color: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
 
-        &.error {
-            background-color: #f8d7da;
-            border-color: #dc3545;
-            color: #721c24;
-        }
+.flash.error {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+}
 
-        &.warning {
-            background-color: #fff3cd;
-            border-color: #ffc107;
-            color: #856404;
-        }
+.flash.warning {
+    background-color: #fff3cd;
+    border-color: #ffc107;
+    color: #856404;
+}
 
-        &.info {
-            background-color: #d1ecf1;
-            border-color: #17a2b8;
-            color: #0c5460;
-        }
-    }
+.flash.info {
+    background-color: #d1ecf1;
+    border-color: #17a2b8;
+    color: #0c5460;
+}
+
+.flash-hide {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+
+.flash-close {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+
+.flash-close:hover {
+    opacity: 0.75;
 }
 
 
