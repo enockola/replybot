@@ -22,13 +22,13 @@ const caCert = fs.readFileSync(path.join(__dirname, '../../bin', 'byuicse-psql-c
  */
 const pool = new Pool({
     connectionString: process.env.DB_URL,
-    max: 5,
+    max: 3,
     idleTimeoutMillis: 10000,
     connectionTimeoutMillis: 5000,
     ssl: {
-        ca: caCert,  // Use the certificate content, not the file path
-        rejectUnauthorized: true,  // Keep this true for proper security
-        checkServerIdentity: () => { return undefined; }  // Skip hostname verification but keep cert chain validation
+        ca: caCert,
+        rejectUnauthorized: true,
+        checkServerIdentity: () => undefined
     }
 });
 
