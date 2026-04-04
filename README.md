@@ -58,9 +58,6 @@ Foreign keys enforce relationships and cascading behavior is applied where appro
 
 ## 4. Test Account Credentials
 
-All accounts use the password:
-
-P@$$w0rd!
 
 ### Admin
 Email: admin@example.com
