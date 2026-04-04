@@ -1,0 +1,126 @@
+<%- include('../partials/dashboard/header') %>
+
+<main class="canned-response">
+    <aside class="side-bar nav-adjust">
+        <ul class="category">
+            <li><a href="/responses">Canned Response</a></li>
+            <li><a href="/suggestions">Suggestions</a></li>
+            <li><a href="/tickets">Tickets</a></li>
+            
+            <% if (user && (user.roleName === 'admin' || user.roleName === 'vendor')) { %>
+                <li><a href="/tickets/support">Support</a></li>
+            <% } %>
+
+            <% if (user && user.roleName === 'admin') { %>
+                <li><a href="/suggestions/review">Review Suggestions</a></li>
+            <% } %>
+
+            <li><a href="/register/list">Users</a></li>
+        </ul>
+
+        <div>
+            <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
+            <p>©2026. Replybot</p>
+        </div>
+    </aside>
+
+    <div class="nav-adjust">
+        <div class="content-container">
+            <div class="content-nav">
+                <a href="/dashboard" title="Dashboard Home Page">
+                    <i class="fa-solid fa-house"></i>
+                </a> |
+                <a href="/suggestions">Response Suggestions</a> |
+                <a href=""><%= title %></a>
+            </div>
+
+            <div class="ungrid-content">
+                <h1 class="header"><%= title %></h1>
+
+                <% if (suggestions && suggestions.length > 0) { %>
+                    <div class="users-list content">
+                        <% suggestions.forEach(suggestion => { %>
+                            <div class="user-card content-box">
+                                <div class="user-header">
+                                    <h3>Suggestion #<%= suggestion.id %></h3>
+                                    <span class="suggestion-status-badge <%= suggestion.status %>">
+                                        <%= suggestion.status %>
+                                    </span>
+                                </div>
+
+                                <div class="user-details">
+                                    <% if (isAdminView) { %>
+                                        <div class="detail-item">
+                                            <div class="label">Submitted By</div>
+                                            <div class="value">
+                                                <%= suggestion.first_name %> <%= suggestion.last_name %>
+                                            </div>
+                                        </div>
+
+                                        <div class="detail-item">
+                                            <div class="label">Email</div>
+                                            <div class="value"><%= suggestion.email %></div>
+                                        </div>
+                                    <% } %>
+
+                                    <div class="detail-item">
+                                        <div class="label">Category</div>
+                                        <div class="value">
+                                            <%= suggestion.categoryName || suggestion.suggested_category_name || 'None' %>
+                                        </div>
+                                    </div>
+
+                                    <div class="detail-item">
+                                        <div class="label">Suggested Response</div>
+                                        <div class="value">
+                                            <%= suggestion.response_content.length > 140
+                                                ? suggestion.response_content.slice(0, 140) + '...'
+                                                : suggestion.response_content %>
+                                        </div>
+                                    </div>
+
+                                    <div class="detail-item">
+                                        <div class="label">Created</div>
+                                        <div class="value">
+                                            <%= new Date(suggestion.created_at).toLocaleString() %>
+                                        </div>
+                                    </div>
+
+                                    <% if (suggestion.admin_notes) { %>
+                                        <div class="detail-item">
+                                            <div class="label">Admin Notes</div>
+                                            <div class="value">
+                                                <%= suggestion.admin_notes.length > 120
+                                                    ? suggestion.admin_notes.slice(0, 120) + '...'
+                                                    : suggestion.admin_notes %>
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                </div>
+
+                                <div class="user-actions">
+                                    <a href="/suggestions/<%= suggestion.id %>">View</a>
+
+                                    <% if (!isAdminView && suggestion.status === 'pending') { %>
+                                        <form method="POST" action="/suggestions/<%= suggestion.id %>/delete" style="display: inline;">
+                                            <button
+                                                type="submit"
+                                                onclick="return confirm('Are you sure you want to delete this suggestion?')"
+                                            >
+                                                Delete
+                                            </button>
+                                        </form>
+                                    <% } %>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <p class="empty-state">No suggestions found.</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/dashboard/footer') %>

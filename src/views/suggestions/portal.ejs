@@ -1,0 +1,71 @@
+<%- include('../partials/dashboard/header') %>
+
+<main class="canned-response">
+    <aside class="side-bar nav-adjust">
+        <ul class="category">
+            <li><a href="/responses">Canned Response</a></li>
+            <li><a href="/suggestions">Suggestions</a></li>
+            <li><a href="/tickets">Tickets</a></li>
+            
+            <% if (user && (user.roleName === 'admin' || user.roleName === 'vendor')) { %>
+                <li><a href="/tickets/support">Support</a></li>
+            <% } %>
+
+            <% if (user && user.roleName === 'admin') { %>
+                <li><a href="/suggestions/review">Review Suggestions</a></li>
+            <% } %>
+
+            <li><a href="/register/list">Users</a></li>
+        </ul>
+
+        <div>
+            <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
+            <p>©2026. Replybot</p>
+        </div>
+    </aside>
+
+    <div class="nav-adjust">
+        <div class="content-container">
+            <div class="content-nav">
+                <a href="/dashboard"><i class="fa-solid fa-house"></i></a> |
+                <a href="/suggestions">Response Suggestions</a> |
+            </div>
+
+            <div class="ungrid-content">
+                <h1 class="header">Response Suggestions</h1>
+                <div class="users-list content">
+                    <div class="user-card content-box">
+                        <div class="user-header">
+                            <h3>Submit Suggestion</h3>
+                        </div>
+                        <div class="user-actions">
+                            <a href="/suggestions/new">New Suggestion</a>
+                        </div>
+                    </div>
+
+                    <div class="user-card content-box">
+                        <div class="user-header">
+                            <h3>My Suggestions</h3>
+                        </div>
+                        <div class="user-actions">
+                            <a href="/suggestions/my-suggestions">View My Suggestions</a>
+                        </div>
+                    </div>
+
+                    <% if (user && user.roleName === 'admin') { %>
+                        <div class="user-card content-box">
+                            <div class="user-header">
+                                <h3>Review Suggestions</h3>
+                            </div>
+                            <div class="user-actions">
+                                <a href="/suggestions/review">Admin Review</a>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/dashboard/footer') %>

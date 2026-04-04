@@ -76,4 +76,17 @@ CREATE TABLE IF NOT EXISTS contact_form (
     submitted TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS response_suggestions (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    category_id INTEGER REFERENCES response_categories(id) ON DELETE SET NULL,
+    suggested_category_name VARCHAR(100),
+    response_content TEXT NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'pending',
+    admin_notes TEXT,
+    approved_response_id INTEGER REFERENCES canned_responses(id) ON DELETE SET NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 COMMIT;

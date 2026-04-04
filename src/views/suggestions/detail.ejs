@@ -1,0 +1,122 @@
+<%- include('../partials/dashboard/header') %>
+
+<main class="canned-response">
+    <aside class="side-bar nav-adjust">
+        <ul class="category">
+            <li><a href="/responses">Canned Response</a></li>
+            <li><a href="/suggestions">Suggestions</a></li>
+            <li><a href="/tickets">Tickets</a></li>
+            
+            <% if (user && (user.roleName === 'admin' || user.roleName === 'vendor')) { %>
+                <li><a href="/tickets/support">Support</a></li>
+            <% } %>
+
+            <% if (user && user.roleName === 'admin') { %>
+                <li><a href="/suggestions/review">Review Suggestions</a></li>
+            <% } %>
+
+            <li><a href="/register/list">Users</a></li>
+        </ul>
+
+        <div>
+            <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
+            <p>©2026. Replybot</p>
+        </div>
+    </aside>
+
+    <div class="nav-adjust">
+        <div class="content-container">
+            <div class="content-nav">
+                <a href="/dashboard" title="Dashboard Home Page">
+                    <i class="fa-solid fa-house"></i>
+                </a> |
+                <a href="/suggestions" title="Suggestions">Response Suggestions</a> |
+                <a href="/suggestions/my-suggestions" title="my-suggestions">My Suggestions</a> |
+                <a href="">Suggestion #<%= suggestion.id %></a>
+            </div>
+
+            <div class="ungrid-content">
+                <div class="suggestion-summary-card">
+                    <h1>Suggestion #<%= suggestion.id %></h1>
+
+                    <p>
+                        <strong>Status:</strong>
+                        <span class="suggestion-status-badge <%= suggestion.status %>">
+                            <%= suggestion.status %>
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Submitted By:</strong>
+                        <%= suggestion.first_name %> <%= suggestion.last_name %>
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        <%= suggestion.email %>
+                    </p>
+
+                    <p>
+                        <strong>Category:</strong>
+                        <%= suggestion.categoryName || suggestion.suggested_category_name || 'None' %>
+                    </p>
+
+                    <p>
+                        <strong>Created:</strong>
+                        <%= new Date(suggestion.created_at).toLocaleString() %>
+                    </p>
+
+                    <% if (suggestion.updated_at) { %>
+                        <p>
+                            <strong>Last Updated:</strong>
+                            <%= new Date(suggestion.updated_at).toLocaleString() %>
+                        </p>
+                    <% } %>
+
+                    <% if (suggestion.approved_response_id) { %>
+                        <p>
+                            <strong>Approved Response ID:</strong>
+                            <%= suggestion.approved_response_id %>
+                        </p>
+                    <% } %>
+
+                    <p><strong>Suggested Response:</strong></p>
+                    <div class="suggestion-content-box"><%= suggestion.response_content %></div>
+
+                    <% if (suggestion.admin_notes) { %>
+                        <p><strong>Admin Notes:</strong></p>
+                        <div class="suggestion-note-box"><%= suggestion.admin_notes %></div>
+                    <% } %>
+                </div>
+
+                <% if (user && user.roleName === 'admin' && suggestion.status === 'pending') { %>
+                    <section class="suggestion-section">
+                        <h2>Approve Suggestion</h2>
+                        <form method="POST" action="/suggestions/<%= suggestion.id %>/approve" class="contact-form">
+                            <div class="form-group">
+                                <label for="adminNotesApprove">Admin Notes (optional)</label>
+                                <textarea id="adminNotesApprove" name="adminNotes" rows="4"></textarea>
+                            </div>
+
+                            <button type="submit">Approve</button>
+                        </form>
+                    </section>
+
+                    <section class="suggestion-section">
+                        <h2>Reject Suggestion</h2>
+                        <form method="POST" action="/suggestions/<%= suggestion.id %>/reject" class="contact-form">
+                            <div class="form-group">
+                                <label for="adminNotesReject">Reason / Notes</label>
+                                <textarea id="adminNotesReject" name="adminNotes" rows="4"></textarea>
+                            </div>
+
+                            <button type="submit">Reject</button>
+                        </form>
+                    </section>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/dashboard/footer') %>

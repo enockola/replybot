@@ -4,10 +4,15 @@
     <aside class="side-bar nav-adjust">
         <ul class="category">
             <li><a href="/responses">Canned Response</a></li>
+            <li><a href="/suggestions">Suggestions</a></li>
             <li><a href="/tickets">Tickets</a></li>
-
+            
             <% if (user && (user.roleName === 'admin' || user.roleName === 'vendor')) { %>
                 <li><a href="/tickets/support">Support</a></li>
+            <% } %>
+
+            <% if (user && user.roleName === 'admin') { %>
+                <li><a href="/suggestions/review">Review Suggestions</a></li>
             <% } %>
 
             <li><a href="/register/list">Users</a></li>

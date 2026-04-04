@@ -1,0 +1,82 @@
+<%- include('../partials/dashboard/header') %>
+
+<main class="canned-response">
+
+    <aside class="side-bar nav-adjust">
+        <ul class="category">
+            <li><a href="/responses">Canned Response</a></li>
+            <li><a href="/suggestions">Suggestions</a></li>
+            <li><a href="/tickets">Tickets</a></li>
+            
+            <% if (user && (user.roleName === 'admin' || user.roleName === 'vendor')) { %>
+                <li><a href="/tickets/support">Support</a></li>
+            <% } %>
+
+            <% if (user && user.roleName === 'admin') { %>
+                <li><a href="/suggestions/review">Review Suggestions</a></li>
+            <% } %>
+
+            <li><a href="/register/list">Users</a></li>
+        </ul>
+
+        <div>
+            <img class="logo" src="/images/logo-dark.png" width="113" height="113" alt="ReplyBot logo image">
+            <p>©2026. Replybot</p>
+        </div>
+    </aside>
+
+    <div class="nav-adjust">
+        <div class="content-container">
+            <div class="content-nav">
+                <a href="/dashboard"><i class="fa-solid fa-house"></i></a> |
+                <a href="/suggestions">Response Suggestions</a> |
+                <a href="">New Suggestion</a>
+            </div>
+
+            <div class="ungrid-content">
+                <h1 class="header">Submit Response Suggestion</h1>
+
+                <form method="POST" action="/suggestions" class="contact-form">
+                    <div class="form-group">
+                        <label for="categoryId">Choose Existing Category</label>
+                        <select id="categoryId" name="categoryId">
+                            <option value="">-- Select a category --</option>
+                            <% categories.forEach(category => { %>
+                                <option
+                                    value="<%= category.id %>"
+                                    <%= String(formData?.categoryId || '') === String(category.id) ? 'selected' : '' %>
+                                >
+                                    <%= category.name %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="suggestedCategoryName">Or Suggest New Category</label>
+                        <input
+                            type="text"
+                            id="suggestedCategoryName"
+                            name="suggestedCategoryName"
+                            value="<%= formData?.suggestedCategoryName || '' %>"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="responseContent">Suggested Response</label>
+                        <textarea
+                            id="responseContent"
+                            name="responseContent"
+                            rows="8"
+                            required
+                        ><%= formData?.responseContent || '' %></textarea>
+                    </div>
+
+                    <button type="submit">Submit Suggestion</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/dashboard/footer') %>

@@ -16,6 +16,7 @@ import loginRoutes from './forms/login.js';
 import { processLogout, showDashboard } from './forms/login.js';
 import { requireLogin } from '../middleware/auth.js';
 import ticketRoutes from './tickets/ticket.js';
+import suggestionRoutes from './suggestions/suggestion.js';
 
 const router = Router();
 
@@ -37,6 +38,8 @@ router.get('/test-error', testErrorPage);
 router.use('/login', loginRoutes);
 
 router.use('/tickets', ticketRoutes);
+
+router.use('/suggestions', suggestionRoutes);
 
 // Authentication-related routes at root level
 router.get('/logout', processLogout);
